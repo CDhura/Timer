@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>休憩時間管理タイマー</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="timer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body class="bg-light">
+
+    <div class="container py-4">
+        <h1 class="text-center mb-4">休憩時間管理タイマー</h1>
+        <div class="text-center mb-4">
+            ※秒数が表示されないため、動作確認の際は<br>「作業開始」ボタンを押してから1分間お待ちいただけますと幸いです。
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-5">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">作業時間</h5>
+                        <div id="sw-display" class="display-4 mb-3">
+                            00
+                            <font size="6"> h </font>
+                            00
+                            <font size="6"> min </font>
+                        </div>
+                        <div id="sw-displayTotal" class="mb-3">
+                            00
+                            <font size="2"> h </font>
+                            00
+                            <font size="2"> min </font>
+                        </div>
+                        <button id="sw-startStopButton" class="btn btn-primary">作業開始</button>
+                        <button id="sw-resetButton" class="btn btn-secondary">リセット</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">休憩時間</h5>
+                        <div id="tm-display" class="display-4 mb-3">
+                            <!-- <span id="displayHoursT">00</span>
+                            <font size="6"> h </font>
+                            <span id="displayMinutesT">30</span>
+                            <font size="6"> min </font> -->
+                            00
+                            <font size="6"> h </font>
+                            00
+                            <font size="6"> min </font>
+                        </div>
+                        <!-- <div id="displayTotalT" class="mb-3">00:30:00</div> -->
+                        <div id="tm-displayTotal" class="mb-3">
+                            00
+                            <font size="2"> h </font>
+                            00
+                            <font size="2"> min </font>
+                        </div>
+                        <button id="tm-startStopButton" class="btn btn-success">休憩開始</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-5">
+                <h3 class="text-center">最初の休憩時間</h3>
+                <div class="card p-3">
+                    <div class="mb-2">
+                        <label for="initialHours">時間</label>
+                        <input id="initialHours" type="number" class="form-control" value="0">
+                    </div>
+                    <div class="mb-2">
+                        <label for="initialMinutes">分</label>
+                        <input id="initialMinutes" type="number" class="form-control" value="30">
+                    </div>
+                    <div class="mb-2">
+                        <label for="initialSeconds">秒</label>
+                        <input id="initialSeconds" type="number" class="form-control" value="0">
+                    </div>
+                    <button id="timeOutput" class="btn btn-info w-100">すべて反映</button>
+                </div>
+                <!-- <div id="irt-errorMessage" class="text-center mt-4"></div> -->
+                
+                
+            </div>
+
+            <div class="col-md-5">
+                <h3 class="text-center">加算する休憩時間</h3>
+                <p class="text-center">(加算する休憩時間 = r × 作業時間)</p>
+                <div class="card p-3">
+                    <div class="mb-2">
+                        <label for="ratio">r = </label>
+                        <input id="ratio" type="number" class="form-control" value="1.0">
+                    </div>
+                    <button id="ratioOutput" class="btn btn-info w-100">反映</button>
+                </div>
+            </div>
+        </div>      
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="timer.js"></script>
+</body>
+</html>

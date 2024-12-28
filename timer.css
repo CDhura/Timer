@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+h1, h3 {
+    color: #333;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.display-4 {
+    font-size: 2.5rem;
+}
+
+.text-center a {
+    color: #007bff;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+/* カスタムホバースタイルの追加 */
+.btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: white;
+    border-color: #17a2b8;
+}
+
+/* ホバー時の下線を無効化 */
+a.custom-link:hover {
+    text-decoration: none;
+    background-color: #17a2b8;
+    color: white;
+    border-color: #17a2b8;
+}
+
+/* ボタンが押し込まれた状態にする */
+.work-btn-pressed {
+    background-color: #0053ac !important; /* 色を濃くする.  */
+    color: white !important; /* テキストカラーを白に.  */
+    /* transform: translateY(2px); */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* 内側の影.  */
+}
+.break-btn-pressed {
+    background-color: #036901 !important; /* 色を濃くする.  */
+    color: white !important; /* テキストカラーを白に.  */
+    /* transform: translateY(2px); */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* 内側の影.  */
+}
