@@ -33,11 +33,11 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
             this.startStopButton.classList.add('work-btn-pressed'); // ボタンが押し込まれた状態にする. 
             this.running = true;
         }else{ // 作業を中断するとき. 
-            clearInterval(this.tInterval);
             const stopTime = new Date().getTime();
+            clearInterval(this.tInterval);
     
-            this.prevElapsedTime += stopTime - this.startTime; // 作業時間を保存. 
-            this.prevTotalElapsedTime = this.totalElapsedTime; // 合計作業時間を保存. 
+            this.prevElapsedTime += stopTime - this.startTime; // 作業時間を更新. 
+            this.prevTotalElapsedTime = this.totalElapsedTime; // 合計作業時間を更新. 
     
             this.startStopButton.innerHTML = '作業開始';
             this.startStopButton.classList.remove('work-btn-pressed'); // ボタンが押し込まれた状態を解除する. 
@@ -57,26 +57,22 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
     reset(){
         if(this.tm.running){
             this.tm.startStop();
+        }else{
+            if(this.running){
+                this.startStop();
+            }
+
+            this.tm.addBreakTime(this.prevElapsedTime, this.r); // 休憩時間を加算
+
+            this.prevElapsedTime = 0; // 作業時間をリセット. 
+        
+            this.display.innerHTML = `
+            00
+            <font size="6"> h </font>
+            00
+            <font size="6"> min </font>
+            `;
         }
-        const stopTime = new Date().getTime();
-        clearInterval(this.tInterval);
-
-        this.prevElapsedTime += stopTime - this.startTime; // 作業時間を更新. 
-        this.prevTotalElapsedTime = this.totalElapsedTime; // 合計作業時間を更新. 
-
-        this.tm.addBreakTime(this.prevElapsedTime, this.r); // 休憩時間を加算
-
-        this.prevElapsedTime = 0; // 作業時間をリセット. 
-    
-        this.display.innerHTML = `
-        00
-        <font size="6"> h </font>
-        00
-        <font size="6"> min </font>
-        `;
-        this.startStopButton.innerHTML = '作業開始';
-        this.startStopButton.classList.remove('work-btn-pressed'); // ボタンが押し込まれた状態を解除する. 
-        this.running = false;
     }
 
     displayElapsedTime(time){
