@@ -135,7 +135,7 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
             this.startStopButton.classList.add('btn-pressed'); // ボタンが押し込まれた状態にする. 
             this.running = true;
         }else{
-            this.prevRemainingTime = this.remainingTime;
+            this.prevRemainingTime = this.remainingTime; // これはおそらく不要？
             clearInterval(this.tInterval);
             this.startStopButton.innerHTML = '休憩開始';
             this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
@@ -146,17 +146,26 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
     update(){
         const currentTime = new Date().getTime();
         this.remainingTime = this.prevRemainingTime - (currentTime - this.startTime);
-        this.displayRemainingTime();
 
         if(this.remainingTime <= 0){
             clearInterval(this.tInterval);
-            this.startStopButton.innerHTML = '休憩開始';
-            this.running = false;
             this.remainingTime = 0;
-            this.displayRemainingTime();
+
+            // this.startStopButton.innerHTML = '休憩開始';
+            // this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
+            // this.running = false;
+
+            this.startStop(); // running == trueなのでelseの方の処理が行われる. 
+            // 下記5行と同じ処理を行う. 
+            // this.prevRemainingTime = this.remainingTime;
+            // clearInterval(this.tInterval);
+            // this.startStopButton.innerHTML = '休憩開始';
+            // this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
+            // this.running = false;
+
             alert('時間を使い切りました');
-            this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
         }
+        this.displayRemainingTime();
     }  
     
     displayRemainingTime(){ // 残り時間を表示
