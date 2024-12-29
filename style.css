@@ -54,3 +54,11 @@ a.custom-link:hover {
     /* transform: translateY(2px); */
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* 内側の影.  */
 }
+
+.nav-color {
+    background-color: #cbcbcb
+}
+
+html {
+    overflow-y: scroll;
+}
