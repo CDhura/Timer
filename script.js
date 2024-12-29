@@ -125,17 +125,18 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
 
     startStop(){  
         if(!this.running){
-            if(this.sw.running){ // 作業時間が進行中なら, 作業をリセット. 
-                this.sw.reset();
+            if(this.sw.running){ // 作業時間が進行中なら, 中断する. 
+                // this.sw.reset();
+                this.sw.startStop();
             }
             this.prevRemainingTime = this.remainingTime;
             this.startTime = new Date().getTime();
             this.tInterval = setInterval(() => this.update(), 1);
             this.startStopButton.innerHTML = '休憩中断';
-            this.startStopButton.classList.add('btn-pressed'); // ボタンが押し込まれた状態にする. 
+            this.startStopButton.classList.add('btn-pressed'); // ボタンが押し込まれた状態（色が濃い状態）にする. 
             this.running = true;
         }else{
-            this.prevRemainingTime = this.remainingTime; // これはおそらく不要？
+            this.prevRemainingTime = this.remainingTime; // これはおそらく不要
             clearInterval(this.tInterval);
             this.startStopButton.innerHTML = '休憩開始';
             this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
