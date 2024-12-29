@@ -155,6 +155,7 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
             this.remainingTime = 0;
             this.displayRemainingTime();
             alert('時間を使い切りました');
+            this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
         }
     }  
     
