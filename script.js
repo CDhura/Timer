@@ -30,7 +30,7 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
             this.tInterval = setInterval(() => this.update(), 1); // 1ミリ秒毎にupdate関数を呼び出して実行. 
             this.startStopButton.innerHTML = '作業中断';
 
-            this.startStopButton.classList.add('work-btn-pressed'); // ボタンが押し込まれた状態にする. 
+            this.startStopButton.classList.add('btn-pressed'); // ボタンが押し込まれた状態にする. 
             this.running = true;
         }else{ // 作業を中断するとき. 
             const stopTime = new Date().getTime();
@@ -40,7 +40,7 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
             this.prevTotalElapsedTime = this.totalElapsedTime; // 合計作業時間を更新. 
     
             this.startStopButton.innerHTML = '作業開始';
-            this.startStopButton.classList.remove('work-btn-pressed'); // ボタンが押し込まれた状態を解除する. 
+            this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除する. 
             this.running = false;
         }
     }
@@ -132,13 +132,13 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
             this.startTime = new Date().getTime();
             this.tInterval = setInterval(() => this.update(), 1);
             this.startStopButton.innerHTML = '休憩中断';
-            this.startStopButton.classList.add('break-btn-pressed'); // ボタンが押し込まれた状態にする. 
+            this.startStopButton.classList.add('btn-pressed'); // ボタンが押し込まれた状態にする. 
             this.running = true;
         }else{
             this.prevRemainingTime = this.remainingTime;
             clearInterval(this.tInterval);
             this.startStopButton.innerHTML = '休憩開始';
-            this.startStopButton.classList.remove('break-btn-pressed'); // ボタンが押し込まれた状態を解除. 
+            this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
             this.running = false;
         }
     }

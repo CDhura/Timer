@@ -27,11 +27,11 @@ h1, h3 {
 }
 
 /* カスタムホバースタイルの追加 */
-.btn-outline-info:hover {
+/* .btn-outline-info:hover {
     background-color: #17a2b8;
     color: white;
     border-color: #17a2b8;
-}
+} */
 
 /* ホバー時の下線を無効化 */
 a.custom-link:hover {
@@ -41,22 +41,42 @@ a.custom-link:hover {
     border-color: #17a2b8;
 }
 
-/* ボタンが押し込まれた状態にする */
-.work-btn-pressed {
-    background-color: #0053ac !important; /* 色を濃くする.  */
-    color: white !important; /* テキストカラーを白に.  */
-    /* transform: translateY(2px); */
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* 内側の影.  */
+
+
+/* .nav-color {
+    background-color: #cbcbcb
+} */
+
+.default-color {
+    background-color: #4d77c0;
+    color: white;
 }
-.break-btn-pressed {
-    background-color: #036901 !important; /* 色を濃くする.  */
-    color: white !important; /* テキストカラーを白に.  */
+
+.btn.default-color:hover {
+    background-color: #324f82;
+    color: white;
+}
+.btn.default-color:active { /* クリック中の処理 */
+    background-color: #324f82;
+    color: white;
+}
+
+/* ボタンが押し込まれた状態にする */
+.btn-pressed {
+    /* background-color: #0053ac !important; 色を濃くする.  */
+    /* background-color: #38568b; */
+    background-color: #324f82;
+    /* color: white !important; テキストカラーを白に.  */
     /* transform: translateY(2px); */
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* 内側の影.  */
 }
 
-.nav-color {
-    background-color: #cbcbcb
+/* .default-color3 {
+    background-color: #81c5f3;
+} */
+
+.default-color2 {
+    background-color: #9ed9f9;
 }
 
 html {
