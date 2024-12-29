@@ -217,6 +217,9 @@ class inputRemainingTime{
         this.tm = tm; // Timerクラスのインスタンス. 
     }
     calcRemainingTime(){
+        if(this.tm.running){ // 休憩時間タイマーが作動しているとき. 
+            this.tm.startStop(); // 休憩時間タイマーを止める. 
+        }
         if(this.inputHours.value < 0 || 
             this.inputMinutes.value < 0 || 
             this.inputSeconds.value < 0){
