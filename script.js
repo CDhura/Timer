@@ -57,6 +57,7 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
     reset(){
         if(this.tm.running){
             this.tm.startStop();
+            this.reset();
         }else{
             if(this.running){
                 this.startStop();
