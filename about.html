@@ -50,13 +50,16 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 上下に大小2つの時間が表示されます。上部は現在の経過時間、下部は累積の経過時間を表します。
+                                <div class="text-center mt-4 mb-2">
+                                    <img src="./images/working-time.png" class="img-fluid" alt="作業時間">
+                                </div>                            
                             </li>
                             <li class="list-group-item">
                                 <strong>上部（現在の経過時間）:</strong>
                                 <br>
                                 「作業開始」ボタンを押すことで、時間がカウントアップされていきます。
                                 再度ボタンを押すと、一時停止されます。<br>
-                                「リセット」ボタンで0に戻り、同時に休憩時間へ作業時間の分だけ加算されます。（後述のrを変更することで加算される比率を変更できます。）
+                                「リセット」ボタンで0に戻り、同時に休憩時間へ作業時間の分だけ加算されます。例えば3分間経過後リセットを押すと、休憩時間に3分加算されます。（後述のrを変更することで加算される比率を変更できます。）
                             </li>
                             <li class="list-group-item">
                                 <strong>下部（累積の作業時間）:</strong>
@@ -75,6 +78,9 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 上下に大小2つの時間が表示されます。上部は「残りの休憩時間」、下部は「これまで消費した休憩時間 + 残りの休憩時間」を表します。
+                                <div class="text-center mt-4 mb-2">
+                                    <img src="./images/break-time.png" class="img-fluid" alt="休憩時間">
+                                </div>           
                             </li>
                             <li class="list-group-item">
                                 <strong>上部（残りの休憩時間）:</strong>
@@ -99,6 +105,9 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 値を入力し、「すべて反映」ボタンを押すと、「休憩時間」部分に入力した時間が反映されます。
+                                <div class="text-center mt-4 mb-2">
+                                    <img src="./images/init-break-time.png" class="img-fluid" alt="休憩時間の初期値">
+                                </div>           
                             </li>
                         </ul>
                     </div>
@@ -112,6 +121,9 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 値 r を設定できます。「反映」ボタンを押すと、「r × 作業時間」の分だけ休憩時間に加算されます。
+                                <div class="text-center mt-4 mb-2">
+                                    <img src="./images/ratio.png" class="img-fluid" alt="加算時間の比率">
+                                </div>           
                             </li>
                             <li class="list-group-item">
                                 <strong>応用</strong><br>
