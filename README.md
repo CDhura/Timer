@@ -12,6 +12,3 @@ https://cdhura.github.io/Timer/ <br>
 - HTML
 - CSS
 
-# 機能一覧
-- ストップウォッチ（作業時間の計測用）
-- タイマー（休憩時間の計測用）
