@@ -1,5 +1,6 @@
 'use strict';
 
+
 class Stopwatch{ // 作業時間ストップウォッチのデータを格納. 
     constructor(display, displayTotal, startStopButton, resetButton, tm, r){
         this.display = display; // 作業時間を表示するための変数. 
@@ -18,6 +19,8 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
 
         this.tm = tm; // Timerクラスのインスタンスを格納. 
         this.r = r; // 作業時間と加算する休憩時間の比率. 
+
+        this.showSeconds = true; // 秒数を表示するかどうか. 
     }
 
     startStop(){ // 作業開始・中断ボタンを押すと呼び出される. 
@@ -67,12 +70,23 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
 
             this.prevElapsedTime = 0; // 作業時間をリセット. 
         
-            this.display.innerHTML = `
-            00
-            <font size="6"> h </font>
-            00
-            <font size="6"> min </font>
-            `;
+            if(this.showSeconds){
+                this.display.innerHTML = `
+                00
+                <font size="6"> h </font>
+                00
+                <font size="6"> m </font>
+                00
+                <font size="6"> s </font>
+                `;
+            }else{
+                this.display.innerHTML = `
+                00
+                <font size="6"> h </font>
+                00
+                <font size="6"> m </font>
+                `;
+            }
         }
     }
 
@@ -83,12 +97,24 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
         minutes = (minutes <= 9) ? `0${minutes}` : `${minutes}`;
         let seconds = Math.floor(time % (3600*1000) % (60*1000) / 1000);
         seconds = (seconds <= 9) ? `0${seconds}` : `${seconds}`;
-        this.display.innerHTML = `
-            ${hours}
-            <font size="6"> h </font>
-            ${minutes}
-            <font size="6"> min </font>
-        `;
+        if(this.showSeconds){
+            this.display.innerHTML = `
+                ${hours}
+                <font size="6"> h </font>
+                ${minutes}
+                <font size="6"> m </font>
+                ${seconds}
+                <font size="6"> s </font>
+            `;
+        }else{
+            this.display.innerHTML = `
+                ${hours}
+                <font size="6"> h </font>
+                ${minutes}
+                <font size="6"> m </font>
+            `;
+        }
+
     }
     
     displayTotalElapsedTime(time){
@@ -98,12 +124,24 @@ class Stopwatch{ // 作業時間ストップウォッチのデータを格納.
         minutes = (minutes <10) ? `0${minutes}` : minutes;
         let seconds = Math.floor(time % (3600*1000) % (60*1000) / 1000);
         seconds = (seconds <10) ? `0${seconds}` : seconds;
-        this.displayTotal.innerHTML = `
-        ${hours}
-        <font size="2"> h </font>
-        ${minutes}
-        <font size="2"> min </font>
-        `;
+        if(this.showSeconds){
+            this.displayTotal.innerHTML = `
+                ${hours}
+                <font size="2"> h </font>
+                ${minutes}
+                <font size="2"> m </font>
+                ${seconds}
+                <font size="2"> s </font>
+            `;
+        }else{
+            this.displayTotal.innerHTML = `
+                ${hours}
+                <font size="2"> h </font>
+                ${minutes}
+                <font size="2"> m </font>
+            `;
+        }
+
     }    
 }
 
@@ -123,6 +161,8 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
 
         this.sw;
         this.allowNegative = false; // trueなら, 休憩時間がマイナスになっても止まらない. 
+
+        this.showSeconds = true; // 秒数を表示するかどうか. 
     }
 
     startStop(){  
@@ -177,13 +217,28 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
         hours = (hours < 10) ? `0${hours}` : hours;
         let minutes = Math.floor(displayTime % (3600*1000) / (60*1000));
         minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        let seconds = Math.floor(displayTime % (3600*1000) % (60*1000) / 1000);
+        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+
+        if(this.showSeconds){
+            this.display.innerHTML = `
+                ${negativeSign}${hours}
+                <font size="6"> h </font>
+                ${minutes}
+                <font size="6"> m </font>
+                ${seconds}
+                <font size="6"> s </font>
+            `;
+        }else{
+            this.display.innerHTML = `
+                ${negativeSign}${hours}
+                <font size="6"> h </font>
+                ${minutes}
+                <font size="6"> m </font>
+            `;
+        }
     
-        this.display.innerHTML = `
-            ${negativeSign}${hours}
-            <font size="6"> h </font>
-            ${minutes}
-            <font size="6"> min </font>
-        `;
+
     }
     
     displayTotalRemainingTime(){
@@ -194,12 +249,23 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
         let seconds = Math.floor(this.totalRemainingTime % (3600*1000) % (60*1000) / 1000);
         seconds = (seconds <10) ? `0${seconds}` : seconds;
     
-        this.displayTotal.innerHTML = `
-            ${hours}
-            <font size="2"> h </font>
-            ${minutes}
-            <font size="2"> min </font>
-        `;
+        if(this.showSeconds){
+            this.displayTotal.innerHTML = `
+                ${hours}
+                <font size="2"> h </font>
+                ${minutes}
+                <font size="2"> m </font>
+                ${seconds}
+                <font size="2"> s </font>
+            `;
+        }else{
+            this.displayTotal.innerHTML = `
+                ${hours}
+                <font size="2"> h </font>
+                ${minutes}
+                <font size="2"> m </font>
+            `;
+        }
     }
 
     // this.tm.addBreakTime(this.prevElapsedTime, this.r);
@@ -243,6 +309,7 @@ class inputRemainingTime{
 }
 
 
+
 const tm = new Timer(
     // display, displayTotal, startStopButton
     document.getElementById('tm-display'), 
@@ -266,9 +333,12 @@ const irt = new inputRemainingTime(
     document.getElementById('initialHours'), 
     document.getElementById('initialMinutes'), 
     document.getElementById('initialSeconds'), 
-    // document.getElementById('irt-errorMessage'),
     tm
 );
+
+// 最初の作業時間を反映させる. （0で固定. ）
+sw.displayElapsedTime(0);
+sw.displayTotalElapsedTime(0);
 
 // 最初の休憩時間を反映させる. 
 irt.calcRemainingTime(); 
@@ -297,12 +367,29 @@ ratioButton.addEventListener('click', function() {
     }
 });
 
-// 休憩時間のマイナスを許可するかどうかのチェックボックス. 
+// トグルスイッチで, 休憩時間のマイナスを許可する or しないの切り替え. 
 const allowNegative = document.getElementById('allowNegative');
 allowNegative.addEventListener('change', function() {
-    // チェックが入っていれば true, 外れていれば false
     tm.allowNegative = allowNegative.checked;
 });
 
 
+// トグルスイッチで, 秒数の表示・非表示を切り替え. 
+const hideSeconds = document.getElementById('hideSeconds');
+hideSeconds.addEventListener('change', function() {
+  const hideSecChecked = hideSeconds.checked;
 
+  sw.showSeconds = !hideSecChecked;
+  tm.showSeconds = !hideSecChecked;
+
+  if(!sw.running){ // 条件がfalseのとき（runningのとき）は, update()により自動で反映される. 
+    sw.displayElapsedTime(sw.prevElapsedTime);
+    sw.displayTotalElapsedTime(sw.totalElapsedTime);
+  }
+
+  if(!tm.running){ // 条件がfalseのとき（runningのとき）は, update()により自動で反映される. 
+    tm.displayRemainingTime();
+  }
+  tm.displayTotalRemainingTime();
+
+});
