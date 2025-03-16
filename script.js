@@ -122,6 +122,7 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
         this.tInterval;
 
         this.sw;
+        this.allowNegative = false; // trueなら, 休憩時間がマイナスになっても止まらない. 
     }
 
     startStop(){  
@@ -149,35 +150,36 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
         const currentTime = new Date().getTime();
         this.remainingTime = this.prevRemainingTime - (currentTime - this.startTime);
 
-        if(this.remainingTime <= 0){
+        if(!this.allowNegative && this.remainingTime <= 0){
             clearInterval(this.tInterval);
             this.remainingTime = 0;
 
-            // this.startStopButton.innerHTML = '休憩開始';
-            // this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
-            // this.running = false;
-
             this.startStop(); // running == trueなのでelseの方の処理が行われる. 
-            // 下記5行と同じ処理を行う. 
-            // this.prevRemainingTime = this.remainingTime;
-            // clearInterval(this.tInterval);
-            // this.startStopButton.innerHTML = '休憩開始';
-            // this.startStopButton.classList.remove('btn-pressed'); // ボタンが押し込まれた状態を解除. 
-            // this.running = false;
 
             alert('時間を使い切りました');
         }
+
         this.displayRemainingTime();
     }  
     
     displayRemainingTime(){ // 残り時間を表示
-        let hours = Math.floor(this.remainingTime / (3600*1000));
+        // 残り時間がマイナスかどうか確認. 
+        let negativeSign = '';
+        let displayTime = this.remainingTime;
+
+        // remainingTime < 0のとき（このときallowNegative == trueになる. ）
+        if (displayTime < 0) {
+            negativeSign = '-';
+            displayTime = Math.abs(displayTime); // 絶対値を計算. 
+        }
+
+        let hours = Math.floor(displayTime / (3600*1000));
         hours = (hours < 10) ? `0${hours}` : hours;
-        let minutes = Math.floor(this.remainingTime % (3600*1000) / (60*1000));
+        let minutes = Math.floor(displayTime % (3600*1000) / (60*1000));
         minutes = (minutes < 10) ? `0${minutes}` : minutes;
     
         this.display.innerHTML = `
-            ${hours}
+            ${negativeSign}${hours}
             <font size="6"> h </font>
             ${minutes}
             <font size="6"> min </font>
@@ -295,7 +297,12 @@ ratioButton.addEventListener('click', function() {
     }
 });
 
-
+// 休憩時間のマイナスを許可するかどうかのチェックボックス. 
+const allowNegative = document.getElementById('allowNegative');
+allowNegative.addEventListener('change', function() {
+    // チェックが入っていれば true, 外れていれば false
+    tm.allowNegative = allowNegative.checked;
+});
 
 
 
