@@ -289,14 +289,14 @@ class inputRemainingTime{
         if(this.tm.running){ // 休憩時間タイマーが作動しているとき. 
             this.tm.startStop(); // 休憩時間タイマーを止める. 
         }
-        if(this.inputHours.value < 0 || 
-            this.inputMinutes.value < 0 || 
-            this.inputSeconds.value < 0){
-            alert('すべての値を0以上にしてください');
-            this.inputHours.value = 0;
-            this.inputMinutes.value = 0;
-            this.inputSeconds.value = 0;
-        }else{
+        // if(this.inputHours.value < 0 || 
+        //     this.inputMinutes.value < 0 || 
+        //     this.inputSeconds.value < 0){
+        //     alert('すべての値を0以上にしてください');
+        //     this.inputHours.value = 0;
+        //     this.inputMinutes.value = 0;
+        //     this.inputSeconds.value = 0;
+        // }else{
             this.tm.remainingTime = 
                 (Number(this.inputHours.value) * 3600 +
                 Number(this.inputMinutes.value) * 60 + 
@@ -304,7 +304,7 @@ class inputRemainingTime{
             this.tm.displayRemainingTime();
             this.tm.totalRemainingTime = (Number(this.inputHours.value) * 3600 + Number(this.inputMinutes.value) * 60 + Number(this.inputSeconds.value)) * 1000; // 残り時間を先に定義しておく. 
             this.tm.displayTotalRemainingTime();
-        }
+        // }
     }
 }
 
