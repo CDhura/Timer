@@ -242,16 +242,26 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
     }
     
     displayTotalRemainingTime(){
-        let hours = Math.floor(this.totalRemainingTime / (3600*1000));
+        // 残り時間がマイナスかどうか確認. 
+        let negativeSign = '';
+        let displayTime = this.totalRemainingTime;
+
+        // remainingTime < 0のとき（このときallowNegative == trueになる. ）
+        if (displayTime < 0) {
+            negativeSign = '-';
+            displayTime = Math.abs(displayTime); // 絶対値を計算. 
+        }
+
+        let hours = Math.floor(displayTime / (3600*1000));
         hours = (hours < 10) ? `0${hours}` : hours;
-        let minutes = Math.floor(this.totalRemainingTime % (3600*1000) / (60*1000));
+        let minutes = Math.floor(displayTime % (3600*1000) / (60*1000));
         minutes = (minutes <10) ? `0${minutes}` : minutes;
-        let seconds = Math.floor(this.totalRemainingTime % (3600*1000) % (60*1000) / 1000);
+        let seconds = Math.floor(displayTime % (3600*1000) % (60*1000) / 1000);
         seconds = (seconds <10) ? `0${seconds}` : seconds;
     
         if(this.showSeconds){
             this.displayTotal.innerHTML = `
-                ${hours}
+                ${negativeSign}${hours}
                 <font size="2"> h </font>
                 ${minutes}
                 <font size="2"> m </font>
@@ -260,7 +270,7 @@ class Timer{ // 休憩時間タイマーに用いるデータを格納.
             `;
         }else{
             this.displayTotal.innerHTML = `
-                ${hours}
+                ${negativeSign}${hours}
                 <font size="2"> h </font>
                 ${minutes}
                 <font size="2"> m </font>
@@ -284,19 +294,21 @@ class inputRemainingTime{
         this.inputMinutes = inputMinutes;
         this.inputSeconds = inputSeconds;
         this.tm = tm; // Timerクラスのインスタンス. 
+        this.allowNegative = false;
     }
     calcRemainingTime(){
         if(this.tm.running){ // 休憩時間タイマーが作動しているとき. 
             this.tm.startStop(); // 休憩時間タイマーを止める. 
         }
-        // if(this.inputHours.value < 0 || 
-        //     this.inputMinutes.value < 0 || 
-        //     this.inputSeconds.value < 0){
-        //     alert('すべての値を0以上にしてください');
-        //     this.inputHours.value = 0;
-        //     this.inputMinutes.value = 0;
-        //     this.inputSeconds.value = 0;
-        // }else{
+
+        if(
+            !this.allowNegative && 
+            (this.inputHours.value < 0 || 
+            this.inputMinutes.value < 0 || 
+            this.inputSeconds.value < 0)
+        ){
+            alert('すべての値を0以上にしてください');
+        }else{
             this.tm.remainingTime = 
                 (Number(this.inputHours.value) * 3600 +
                 Number(this.inputMinutes.value) * 60 + 
@@ -304,7 +316,7 @@ class inputRemainingTime{
             this.tm.displayRemainingTime();
             this.tm.totalRemainingTime = (Number(this.inputHours.value) * 3600 + Number(this.inputMinutes.value) * 60 + Number(this.inputSeconds.value)) * 1000; // 残り時間を先に定義しておく. 
             this.tm.displayTotalRemainingTime();
-        // }
+        }
     }
 }
 
@@ -371,25 +383,25 @@ ratioButton.addEventListener('click', function() {
 const allowNegative = document.getElementById('allowNegative');
 allowNegative.addEventListener('change', function() {
     tm.allowNegative = allowNegative.checked;
+    irt.allowNegative = allowNegative.checked;
 });
 
 
 // トグルスイッチで, 秒数の表示・非表示を切り替え. 
 const hideSeconds = document.getElementById('hideSeconds');
 hideSeconds.addEventListener('change', function() {
-  const hideSecChecked = hideSeconds.checked;
+    const hideSecChecked = hideSeconds.checked;
 
-  sw.showSeconds = !hideSecChecked;
-  tm.showSeconds = !hideSecChecked;
+    sw.showSeconds = !hideSecChecked;
+    tm.showSeconds = !hideSecChecked;
 
-  if(!sw.running){ // 条件がfalseのとき（runningのとき）は, update()により自動で反映される. 
-    sw.displayElapsedTime(sw.prevElapsedTime);
-    sw.displayTotalElapsedTime(sw.totalElapsedTime);
-  }
+    if(!sw.running){ // 条件がfalseのとき（runningのとき）は, update()により自動で反映される. 
+        sw.displayElapsedTime(sw.prevElapsedTime);
+        sw.displayTotalElapsedTime(sw.totalElapsedTime);
+    }
 
-  if(!tm.running){ // 条件がfalseのとき（runningのとき）は, update()により自動で反映される. 
-    tm.displayRemainingTime();
-  }
-  tm.displayTotalRemainingTime();
-
+    if(!tm.running){ // 条件がfalseのとき（runningのとき）は, update()により自動で反映される. 
+        tm.displayRemainingTime();
+    }
+    tm.displayTotalRemainingTime();
 });
